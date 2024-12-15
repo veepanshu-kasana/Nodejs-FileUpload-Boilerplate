@@ -33,12 +33,15 @@ function isFileTypeSupported(type, supportedTypes) {
 }
 
 async function uploadFileToCloudinary(file, folder, quality) {
-    const options = {folder};
+    const options = {
+        folder,
+        resource_type: "auto",
+        use_filename: true // original filename should be preserved
+    };
 
     if(quality){
         options.quality = quality;
     }
-    options.resource_type = "auto";
     return await cloudinary.uploader.upload(file.tempFilePath, options);
 }
 
